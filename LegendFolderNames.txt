@@ -1,0 +1,8 @@
+Legend explaining the name of the folders
+N.B. for all simulations an edge pressure of 5 MPa was used
+
+1) Anisotropic Material
+2) Anisotropic Growth
+3) StrainBased Growth
+4) Narrow Growth Signal (for signal based growth)
+5) Stiffness (of Iso component) inversely proportional to Growth Signal
