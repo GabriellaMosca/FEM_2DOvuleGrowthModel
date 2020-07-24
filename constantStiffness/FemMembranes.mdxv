@@ -1,7 +1,7 @@
 // Parameters for MorphoDynamX
 [Main]
 MDXVersion: 2.0
-MDXRevision: 2-674-ge6183014
+MDXRevision: 2-674-ge618301
 ClearColor: 0
 SurfOffset: 0.01
 Slices: 1024
@@ -71,7 +71,7 @@ Shininess: 32
 Specular: 0.2
 UnsharpStrength: 1
 MaxNbPeels: 10
-CameraFrame: 1 -6.84255e-18 1.38778e-17 0 6.84255e-18 1 9.5628e-35 0 -1.38778e-17 -6.6846e-37 1 0 0.856314 -350.233 -2205.84 1
+CameraFrame: 1 -1.41399e-17 -5.55112e-17 0 1.41399e-17 1 -1.16283e-33 0 5.55112e-17 3.77912e-34 1 0 11.1425 -319.419 -2205.84 1
 SceneRadius: 500
 CameraZoom: 0
 
@@ -79,18 +79,18 @@ CameraZoom: 0
 [Clip1]
 Enable: false
 Grid: false
-Width: 0.0415228
+Width: 0.05825
 GridSize: 1
 GridSquares: 3
 GridColor: 11
 Normal: 1 0 0
-Frame: 0.999988 0.00499998 1.73472e-22 0 -0.00499998 0.999988 6.93886e-20 0 1.73472e-22 -6.93886e-20 1 0 0 0 0 1
+Frame: 0.570737 0.152657 -0.806818 0 0.663696 0.492787 0.562733 0 0.483495 -0.856654 0.179934 0 0 0 0 1
 
 
 [Clip2]
 Enable: false
 Grid: false
-Width: 0.0415228
+Width: 0.05825
 GridSize: 1
 GridSquares: 3
 GridColor: 12
@@ -101,7 +101,7 @@ Frame: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1
 [Clip3]
 Enable: false
 Grid: false
-Width: 0.0415228
+Width: 0.05825
 GridSize: 1
 GridSquares: 3
 GridColor: 13
@@ -112,7 +112,7 @@ Frame: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1
 [Stack1]
 StackFile: 
 WorkStackFile: 
-MeshFile: RectangleInnerDrivenGrowth1_2_3_4_5_6_7.mdxm
+MeshFile: RectangleInnerDrivenGrowth1_2_3_4_6_7.mdxm
 MainShow: false
 MainBright:1
 MainOpacity:0.8
@@ -136,7 +136,7 @@ ScaleX:1
 ScaleY:1
 ScaleZ:1
 Scale:1.73205
-LoadMeshScaleUm: true
+LoadMeshScaleUm: false
 LoadMeshTransform: false
 MeshShift: 0
 CCName: Surface
@@ -188,7 +188,7 @@ DrawCutSurf: false
 Mode: 0
 CutSurfGrid: false
 Material: 0
-Size: 1.00371 1.00371 1.00371
+Size: 1.00335 1.00335 1.00335
 SurfSize: 15 15
 LineWidth: 1
 BezPoints: 5 5
@@ -228,21 +228,21 @@ AutoUnit: true
 Position: BottomRight
 Direction: Horizontal
 TextPosition: Out
-Thickness: 5
+Thickness: 8
 ShiftBorder: 20 20
-FontSize: 12
+FontSize: 18
 
 [ColorBar]
 ScaleLength: 0.3
-Width: 20
-DistanceToBorder: 5
-TextToBar: 5
-TickSize: 2
+Width: 30
+DistanceToBorder: 3
+TextToBar: 8
+TickSize: 3
 ExpSize: 0.7
 Epsilon: 1e-09
-LineWidth: 2
+LineWidth: 4
 Position: TopLeft
-FontSize: 10
+FontSize: 18
 Orientation: Vertical
 
 [Process]
@@ -987,7 +987,7 @@ ParmString: No
 ProcessName: Mesh/System/Load
 NumParms: 4
 ParmName: File Name
-ParmString: /home/gabriella/Desktop/IMAGO_DATA/ovule2Dsimulations_parameterExploration/FEM_2DSimulations/3linesEpidermis/1+2+3+4+5+6+7/RectangleInnerDrivenGrowth1_2_3_4_5_6_7.mdxm
+ParmString: /home/gabriella/Desktop/IMAGO_DATA/ovule2Dsimulations_parameterExploration/FEM_2DSimulations/3linesEpidermis/1+2+3+4+6+7/RectangleInnerDrivenGrowth1_2_3_4_6_7.mdxm
 ParmName: Transform
 ParmString: no
 ParmName: Add
@@ -1069,7 +1069,7 @@ ParmString:
 ProcessName: Mesh/System/Save
 NumParms: 3
 ParmName: File Name
-ParmString: /home/gabriella/Desktop/IMAGO_DATA/ovule2Dsimulations_parameterExploration/FEM_2DSimulations/3linesEpidermis/1+2+3+4+5/RectangleInnerDrivenGrowth1_2_3_4_5.mdxm
+ParmString: /home/gabriella/Desktop/IMAGO_DATA/ovule2Dsimulations_parameterExploration/FEM_2DSimulations/3linesEpidermis/1+2+3+4+6+7/RectangleInnerDrivenGrowth1_2_3_4_6_7.mdxm
 ParmName: Transform
 ParmString: no
 ParmName: Mesh Id
@@ -1099,23 +1099,23 @@ ParmString: Model/CCF/13 Growth
 ParmName: Subdivide Process
 ParmString: Model/CCF/14 Subdivide
 ParmName: Simulation time to save mesh
-ParmString: 11, 22, 24, 26, 32, 37, 48, 49
+ParmString: 46
 ParmName: Save Mesh Process Name
 ParmString: Mesh/System/Save
 ParmName: Name of mesh
-ParmString: OvuleFEMGrowth_case1
+ParmString: OvuleFEMGrowth_case6_iso300MPa_Efib_500
 ProcessName: Model/CCF/02 FEM Solver
 NumParms: 17
 ParmName: Step
-ParmString: 1
+ParmString: 10
 ParmName: Dt
 ParmString: 0.01
 ParmName: Min Dt
 ParmString: .0001
 ParmName: Max Dt
-ParmString: 1
+ParmString: 10
 ParmName: Max Norm
-ParmString: 1
+ParmString: 10
 ParmName: Max Steps
 ParmString: 10
 ParmName: Method
@@ -1123,9 +1123,9 @@ ParmString: Backward Euler
 ParmName: Solver Type
 ParmString: Bi-conjugate Gradient Stabilized
 ParmName: CG Max Iter
-ParmString: 200
+ParmString: 50
 ParmName: CG Tolerance
-ParmString: 1e-20
+ParmString: 1e-6
 ParmName: Print Stats
 ParmString: Yes
 ParmName: Converge Threshold
@@ -1189,11 +1189,11 @@ ParmString: TransIso Material
 ProcessName: Model/CCF/06a Material Properties
 NumParms: 5
 ParmName: Young E1E3
-ParmString: 100.0
+ParmString: 300
 ParmName: Young E2
-ParmString: 100.0
+ParmString: 500
 ParmName: Poisson
-ParmString: 0.0
+ParmString: 0.3
 ParmName: Material Label
 ParmString: 1
 ParmName: Material Attribute
@@ -1205,15 +1205,15 @@ ParmString: TransIso Material
 ParmName: Morphogen Signal E1E3
 ParmString: Growth1 Morph Signal
 ParmName: Proportionality type
-ParmString: Negative
+ParmString: Inverse
 ParmName: Morphogen Signal E2
 ParmString: None
 ParmName: Young E1E3 scaling factor
-ParmString: 2000
+ParmString: 400
 ParmName: Young E2 scaling factor
 ParmString: 0
 ParmName: Poisson
-ParmString: 0.
+ParmString: 0.3
 ParmName: Material Label
 ParmString: 1
 ProcessName: Model/CCF/07 Cells to Faces Material
@@ -1241,9 +1241,9 @@ ParmString: Linear Triangle
 ParmName: Element Attribute
 ParmString: Triangle Element
 ParmName: Direction Type
-ParmString: E2
+ParmString: KPAR
 ParmName: Direction from Diffusion Gradient
-ParmString: Orthogonal to Gradient
+ParmString: Parallel to Gradient
 ParmName: Morphogen Signal
 ParmString: E2Morphogen Signal
 ParmName: Tolerance
@@ -1467,7 +1467,7 @@ ParmString: Triangle Element
 ProcessName: Model/CCF/20 Visualize Material
 NumParms: 4
 ParmName: Visualize
-ParmString: Young E1E3
+ParmString: Young E2
 ParmName: Signal Name
 ParmString: 
 ParmName: Label Name
@@ -1477,7 +1477,7 @@ ParmString: TransIso Material
 ProcessName: Model/CCF/21 Visualize Growth
 NumParms: 4
 ParmName: Visualize
-ParmString: KIso Strain
+ParmString: KPar
 ParmName: Signal Name
 ParmString: 
 ParmName: Label Name
@@ -1713,7 +1713,7 @@ NumParms: 4
 ParmName: Labels
 ParmString: 1
 ParmName: Values
-ParmString: 0.2
+ParmString: 0
 ParmName: Morphogen Attribute
 ParmString: GrowthMorphogen1
 ParmName: Dirichlet Attribute
@@ -2056,76 +2056,6 @@ ParmName: Low Threshold
 ParmString: 1000
 ParmName: High Threshold
 ParmString: 0
-ProcessName: Stack/ITK/Filters/ITK Curvature Anisotropic Diffusion Image Filter
-NumParms: 3
-ParmName: Time Step
-ParmString: 0.03
-ParmName: Iterations
-ParmString: 5
-ParmName: Conductance
-ParmString: 9.0
-ProcessName: Stack/ITK/Filters/ITK Curvature Flow Image Filter
-NumParms: 2
-ParmName: Time Step
-ParmString: .0.0625
-ParmName: Steps
-ParmString: 10
-ProcessName: Stack/ITK/Filters/ITK Gradient Magnitude Recursive Gaussian Image Filter
-NumParms: 1
-ParmName: Sigma
-ParmString: 0.5
-ProcessName: Stack/ITK/Filters/ITK Sigmoid Image Filter
-NumParms: 2
-ParmName: Alpha
-ParmString: 1000.0
-ParmName: Beta
-ParmString: 2000.0
-ProcessName: Stack/ITK/Filters/ITK Smoothing Recursive Gaussian Image Filter
-NumParms: 1
-ParmName: Radius
-ParmString: 1.0
-ProcessName: Stack/ITK/Registration/ITK Demons Registration
-NumParms: 6
-ParmName: Deformation File
-ParmString: deformation.vtk
-ParmName: Threshold at Mean
-ParmString: Yes
-ParmName: Histogram Levels
-ParmString: 1024
-ParmName: Match Points
-ParmString: 7
-ParmName: Iterations
-ParmString: 150
-ParmName: Sigma
-ParmString: 1.0
-ProcessName: Stack/ITK/Segmentation/ITK Watershed
-NumParms: 2
-ParmName: Fully Connected
-ParmString: No
-ParmName: Mark Watershed Line
-ParmString: No
-ProcessName: Stack/ITK/Segmentation/ITK Watershed Auto Seeded
-NumParms: 3
-ParmName: Fully Connected
-ParmString: No
-ParmName: Mark Watershed Line
-ParmString: No
-ParmName: Level
-ParmString: 1500
-ProcessName: Stack/ITK/System/ITK Image Reader
-NumParms: 4
-ParmName: File Name
-ParmString: 
-ParmName: Reader
-ParmString: SCIFIO
-ParmName: Store
-ParmString: Main
-ParmName: Stack Number
-ParmString: 0
-ProcessName: Stack/ITK/System/ITK VTK Writer
-NumParms: 1
-ParmName: File Name
-ParmString: 
 ProcessName: Stack/Mesh Interaction/Annihilate
 NumParms: 4
 ParmName: Fill
@@ -2202,10 +2132,6 @@ ParmName: Adapt Factor
 ParmString: 0.3
 ParmName: Fill Value
 ParmString: 30000
-ProcessName: Stack/Morphology/Edge Detect Angle
-NumParms: 1
-ParmName: Fill Holes
-ParmString: No
 ProcessName: Stack/Morphology/Erode
 NumParms: 5
 ParmName: X Radius
@@ -2859,7 +2785,7 @@ NumParms: 0
 ProcessName: Tools/System/Save View
 NumParms: 1
 ParmName: File Name
-ParmString: /home/gabriella/Desktop/IMAGO_DATA/ovule2Dsimulations_parameterExploration/FEM_2DSimulations/3linesEpidermis/1+2+3+4+5+6+7/FemMembranes.mdxv
+ParmString: /home/gabriella/Desktop/IMAGO_DATA/ovule2Dsimulations_parameterExploration/FEM_2DSimulations/3linesEpidermis/1+2+3+4+6+7/FemMembranes.mdxv
 ProcessName: Tools/System/Snapshot
 NumParms: 6
 ParmName: File Name
@@ -2874,36 +2800,6 @@ ParmName: Oversampling
 ParmString: 1.0
 ParmName: Quality
 ParmString: 95
-ProcessName: Tools/Tesselate/TetGen
-NumParms: 7
-ParmName: Input Complex
-ParmString: 
-ParmName: Output Complex
-ParmString: 
-ParmName: Radius-Edge Ratio
-ParmString: 
-ParmName: Dihedral Angle
-ParmString: 
-ParmName: Maximum Size
-ParmString: 
-ParmName: Additional Arguments
-ParmString: 
-ParmName: Extend Selection
-ParmString: No
-ProcessName: Tools/Tesselate/Triangle
-NumParms: 6
-ParmName: Input Complex
-ParmString: 
-ParmName: Output Complex
-ParmString: 
-ParmName: Projection
-ParmString: Best Fit
-ParmName: Minimum Angle
-ParmString: 
-ParmName: Maximum Size
-ParmString: 
-ParmName: Additional Arguments
-ParmString: 
 ProcessName: Tools/Transform/Save Global Transform
 NumParms: 1
 ParmName: File Name
