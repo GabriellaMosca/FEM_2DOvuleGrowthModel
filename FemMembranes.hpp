@@ -20,13 +20,7 @@ namespace mdx
   class FemMembranes;
   class FemMembraneSolver;
   class FemMembraneGrowth;
-  class FemMembraneTrichomeProcess;
   class FemMembraneBisect;
-
-  class L2PericlinalSurfRatio;
-  class SkewSymmetricTensor;
-  class AntiSymmetryTensor;
-  class VisualizeShapeQuantifiers;
 
   // Main model class
   class FemMembranes : public Process
@@ -38,7 +32,6 @@ namespace mdx
       setDesc("FEM simulation with growth and subdivision");
 
       addParm("Solver Process", "Name of solver process", "Model/CCF/02 FEM Solver");
-      addParm("Trichome Process", "Name of the trichome growth assignation process", "Model/CCF/14 Set Trichome Growth");
       addParm("Growth Process", "Name of growth process", "Model/CCF/13 Growth");
       addParm("Subdivide Process", "Name of subdivision process", "Model/CCF/14 Subdivide");
       addParm("Simulation time to save mesh", "At which growth time points save the mesh -- need to be in crescent order", "49, 46, 32" );
@@ -59,7 +52,6 @@ namespace mdx
 
     FemMembraneSolver *solverProcess = 0;
     FemMembraneGrowth *growthProcess = 0;
-    FemMembraneTrichomeProcess *trichomeProcess = 0;
     FemMembraneBisect *subdivideProcess = 0;
     MeshSave *meshSave = 0;
 
@@ -83,8 +75,8 @@ namespace mdx
 
       // Add derivatives processes
       addParm("Element Derivs", "Process for element derivatives", "Model/CCF/03 Triangle Derivs");
-      addParm("Pressure Derivs", "Process for pressure derivatives", "Model/CCF/10a Pressure Derivs"); 
-      addParm("Pressure Edge Derivs", "Process for pressure derivatives", "Model/CCF/10b Pressure Edge Derivs"); 
+      addParm("Pressure Derivs", "Process for pressure derivatives", "Model/CCF/10 Pressure/10a Pressure Derivs"); 
+      addParm("Pressure Edge Derivs", "Process for pressure derivatives", "Model/CCF/10 Pressure/10b Pressure Edge Derivs"); 
 
       addParm("Dirichlet Derivs", "Process for Dirichlet derivatives", "Model/CCF/16 Dirichlet Derivs");
     }
@@ -132,7 +124,7 @@ namespace mdx
   public:
     FemMembraneMaterial(const Process &proc) : SetTransIsoMaterial(proc) 
     {
-      setName("Model/CCF/06a Material Properties");
+      setName("Model/CCF/06 Material Properties/06a Material Properties Uniform");
     }
   };
   class FemMembraneMaterialMorphogenFaces: public fem::SetTransIsoMaterialMorphogensFaces
@@ -140,7 +132,7 @@ namespace mdx
   public:
     FemMembraneMaterialMorphogenFaces(const Process &proc) : SetTransIsoMaterialMorphogensFaces(proc) 
     {
-      setName("Model/CCF/06b Material Properties based on Morphogens (for faces)");
+      setName("Model/CCF/06 Material Properties/06b Material Properties based on Morphogens (for faces)");
     }
   };
 
@@ -160,7 +152,7 @@ namespace mdx
   public:
     FemMembraneAnisoDir(const Process &proc) : SetAnisoDir(proc) 
     {
-      setName("Model/CCF/08a Set Aniso Dir");
+      setName("Model/CCF/08 Set Anisotropy/08a Set Aniso Dir Uniform");
 
       setParmDefault("Element Type", "Linear Triangle");
       setParmDefault("Element Attribute", "Triangle Element");
@@ -172,7 +164,7 @@ namespace mdx
   public:
     FemMembraneAnisoDirMorphogens(const Process &proc) : SetAnisoDirMorphogens(proc) 
     {
-      setName("Model/CCF/08b Set Aniso Dir Morphogens");
+      setName("Model/CCF/08 Set Anisotropy/08b Set Aniso Dir Morphogens");
 
       setParmDefault("Element Type", "Linear Triangle");
       setParmDefault("Element Attribute", "Triangle Element");
@@ -185,7 +177,7 @@ namespace mdx
   public:
     FemMembranePressure(const Process &proc) : SetPressure(proc) 
     {
-      setName("Model/CCF/09a Set Pressure");
+      setName("Model/CCF/09 Set Pressure/09a Set Pressure");
     }
   };
 
@@ -194,7 +186,7 @@ namespace mdx
   public:
     FemMembranePressureDerivs(const Process &proc) : PressureDerivs(proc) 
     {
-      setName("Model/CCF/10a Pressure Derivs");
+      setName("Model/CCF/10 Pressure/10a Pressure Derivs");
     }
   };
 
@@ -203,7 +195,7 @@ namespace mdx
   public:
     FemMembraneEdgePressure(const Process &proc) : SetEdgePressure(proc) 
     {
-      setName("Model/CCF/09b Set Edge Pressure");
+      setName("Model/CCF/09 Set Pressure/09b Set Edge Pressure");
     }
   };
 
@@ -212,7 +204,7 @@ namespace mdx
   public:
     FemMembranePressureEdgeDerivs(const Process &proc) : PressureEdgeDerivs(proc) 
     {
-      setName("Model/CCF/10b Pressure Edge Derivs");
+      setName("Model/CCF/10 Pressure/10b Pressure Edge Derivs");
     }
   };
 
@@ -223,7 +215,7 @@ namespace mdx
   public:
     FemMembraneSetGrowth(const Process &proc) : SetGrowth(proc) 
     {
-      setName("Model/CCF/11a Set Growth");
+      setName("Model/CCF/11 Set Growth/11a Set Growth Uniform");
     }
   };
 
@@ -232,7 +224,7 @@ namespace mdx
   public:
     FemMembraneSetGrowthMorphogens(const Process &proc) : SetGrowthMorphogensFaces(proc) 
     {
-      setName("Model/CCF/11b Set Growth Morphogens (on Faces)");
+      setName("Model/CCF/11 Set Growth/11b Set Growth Morphogens (on Faces)");
     }
   };
 
@@ -272,53 +264,7 @@ namespace mdx
       }
   };
 
-  //specific trichome growth assignation process
-  class FemMembraneTrichomeProcess : public Process
-  {
-    public:
-      FemMembraneTrichomeProcess(const Process &process) : Process(process) 
-      {
-        setName("Set Trichome Growth");
-        setName("Model/CCF/14 Set Trichome Growth");
-
-        setDesc("Set Growth attributes specific for trichome growth. Ovverrides growthIso attributed from previous processes");
-  
-        addParm("Initial sources Set","Saved set containing tip vertices","InitialSet.txt");
-        addParm("Secondary sources Set", "Saved set containing secondary tip vertices", "SecondarySet.txt");
-	//addParm("Distance ring-tip", "Distance between the tricome tip and the ring of secondary growth", "20.");
-        addParm("Distance boundary-tip", "Distance between the tricome tip and the boundary to be reached before initiationg secondary growth", "40");
-        //addParm("Tolerance ring selection", "Tolerance to accept a node into the ring and as a source", "1");
-        addParm("Effective distance for growth", "Scaling factor for distance based-growth field", "10.");
-        addParm("Effective distance for Secondary Growth", "Effective distance for growth after branching", "5");
-        addParm("Decaying factor for distance Secondary Growth", "Decaying factor for the range of action of secondary growth as: EffDistSecondary * e^(-t * Decaying)", "1");
-        //addParm("Angular distance", "Angular distance for secondary sources selection (DEG)", "120.");
-        addParm("Growth scaling factor", "Global growth rescaling factor", "0.01");
-        addParm("FemMembranes Process name", "Name of the main FemMembranes process", "Model/CCF/01 FEM Membranes");
-       	addParm("Hodge Attribute",
-                "Name of double-valued attribute containing computed Hodge values","Hodge Values");
-        addParm("Growth Attribute", "Name of the attribute that holds Growth", "Fem Growth");
-        addParm("Distance field 1 Signal", "Name of the signal to visualize distance signal primary sources", "Distance Primary");
-        addParm("Distance field 2 Signal", "Name of the signal to visualize distance signal secondary sources", "Distance Secondary");
-
-
-
-      }
-
-      /// Set the reference configuration for selected elements
-      bool initialize(QWidget *parent);
-      bool run();
-
-      FemMembranes *femMembranes = 0;
-
-      private:
-       Mesh *mesh = 0;
-       QString ccName;
-       CCStructure *cs = 0;
-       //FemMembranes *femMembranes = 0;
-
-       bool newSources = false;
-  };
-  class FemMembraneSetDirichlet : public fem::SetDirichlet
+   class FemMembraneSetDirichlet : public fem::SetDirichlet
   {
   public:
     FemMembraneSetDirichlet(const Process &proc) : SetDirichlet(proc) 
@@ -621,285 +567,7 @@ namespace mdx
     }
   };
  
-  enum CellType {L1Dome, L1, L2, L3, pSMC, CC, genericCell};
-  static CellType stringToCellType(const QString &str)
-    {
-      if(str == "L1 Dome")
-        return(L1Dome);
-      else if(str == "L1")
-        return(L1);
-      else if(str == "L2")
-        return(L2);
-      else if(str=="L3")
-        return(L3);
-      else if(str=="pSMC")
-        return(pSMC);
-      else if(str=="CC")
-        return(CC);
-      else if(str== "Generic Cell")
-        return(genericCell);
-      else 
-        throw(QString("Bad cell type %1").arg(str));
-    }
-
-  static QString CellTypeToString(const CellType &cellType)
-    {
-      if(cellType == CellType::L1Dome)
-        return("L1 Dome");
-      else if(cellType == CellType::L1)
-        return("L1");
-      else if(cellType == CellType::L2)
-        return("L2");
-      else if(cellType == CellType::L3)
-        return("L3");
-      else if(cellType == CellType::pSMC)
-        return("pSMC");
-      else if(cellType == CellType::CC)
-        return("CC");
-      else if(cellType == CellType::genericCell)
-        return("GenericCell");
-      else 
-        throw(QString("Bad cell type %1").arg(cellType));
-    }
-
-  struct CellShapeData
-  {
-     Matrix3d skewSymmetricTensor; 
-     Point3d asymmetry;
-     CellType cellType = genericCell;
-     double L2periclinalRatio = -1;
-     double bottomPericlinalWallArea = -1;
-     double topPericlinalWallArea = -1;
-     
-     CellShapeData() {}
-  
-     bool operator==(const CellShapeData &other) const
-     {
-      if(skewSymmetricTensor == other.skewSymmetricTensor and asymmetry== other.asymmetry and cellType == other.cellType and L2periclinalRatio == other.L2periclinalRatio and bottomPericlinalWallArea == other.bottomPericlinalWallArea and topPericlinalWallArea == other.topPericlinalWallArea)
-        return true;
-      return false;
-     }      
-  };
-  typedef AttrMap<CCIndex,CellShapeData> CellShapeAttr;
-
-  bool inline readAttr(CellShapeData &m, const QByteArray &ba, size_t &pos) 
-  { 
-    return mdx::readChar((char *)&m, sizeof(CellShapeData), ba, pos);
-  }
-  bool inline writeAttr(const CellShapeData  &m, QByteArray &ba)
-  { 
-    return mdx::writeChar((char *)&m, sizeof(CellShapeData), ba);
-  }
-
-  class AssignCellTypeForShapeQuantifier : public Process
-  {
-    public:
-      AssignCellTypeForShapeQuantifier (const Process &process) : Process(process) 
-      {
-        setName("Model/CCF/50 Set Cell Type");
-        setDesc("Assign cell type for shape quantifiers (L1 dome and L1 cells).");
-        setIcon(QIcon(":/images/CellType.png"));
-
-        addParm("Assign cell type for selected cells", "Assign cell type for selected cells, L1 and L1 Dome are required for shape quantification", "L1", QStringList()<< "L1" << "L2" << "pSMC" << "CC");
-        addParm("Shape Attribute Name", "Shape Attribute Name", "CellShapeData");
-
-      }
-      bool run();
-      CCIndexDataAttr  *indexAttr = 0;
-      CellShapeAttr *shapeAttr = 0;
-      Mesh *mesh = 0;
-      QString SourceCC;
-      CellType cellType;
-  };
-
-  class ComputeCellShapeQuantifier : public Process
-  {
-    public:
-      ComputeCellShapeQuantifier(const Process &process) : Process(process) 
-      {
-        setName("Model/CCF/60 Shape Quantifier/00 Global Shape Quantifier Process");
-        setDesc("Compute cell shape anisotropy and antisymmetry.");
-        setIcon(QIcon(":/images/CellType.png"));
-
-        addParm("Compute Skew Symmetric tensor process", "Compute Skew Symmetric tensor process", "Model/CCF/60 Shape Quantifier/01 Compute Skew Symmetric Tensor");
-        addParm("Compute Antisymmetry tensor process", "Compute Antisymmetry tensor process", "Model/CCF/60 Shape Quantifier/02 Compute Antisymmetry Tensor");
-        addParm("Compute periclinal wall surface ratio for L2 cells", "For each L2 cell, computes the ratio of surface area shared with top L1 cells and the surface area shared with L3 layer",  "Model/CCF/60 Shape Quantifier/03 Compute L2 periclinal surface ratio for selected ovule zone");
-        addParm("Cell volume from heatmap process name", "Compute cell volume from heatmap process, provide the process name", "Mesh/Heat Map/Measures3D/Geometry/Volume");
-        addParm("Cell Volume Signal Attribute", "Cell Volume Signal Attribute as from Volume heatmap computation, Mesh/Heat Map/Measures3D/Geometry/Volume", "Volume");
-        addParm("Visualize shape field process", "Visualize shape field", "Model/CCF/60 Shape Quantifier/04 Visualize Shape Field");
-        addParm("Write Periclinal wall ratio to a file for selected cells", "Writes periclinal wall ratio, top wall size, bottom wall size, general cell label, cell label, cell volume", "testShapeQuantifier.csv");
-
-      }
-      //bool initialize(QWidget* parent);
-      bool run();
-      CCIndexDataAttr  *indexAttr = 0;
-      CellShapeAttr *shapeAttr = 0;
-      Mesh *mesh = 0;
-      QString SourceCC;
-      IntDoubleAttr *volumeHeatAttr = 0;
-      //AuxinGradient::CellDataAttr *cellAttr = 0;
-      //AuxinGradient::EdgeDataAttr *edgeAttr = 0;
-      //SkewSymmetricTensor *skewSymmetricTensorProcess = 0;
-      //CellShapeAttr *shapeAttr = 0;
-      SkewSymmetricTensor *anisotropyTensorProcess = 0;
-      AntiSymmetryTensor *antisymmetryTensorProcess = 0;
-      L2PericlinalSurfRatio *L2PericlinalSurfRatioProcess = 0;
-      VisualizeShapeQuantifiers *visualizeCellShapeProcess = 0;
-      MeasureVolume *measureVolumeProcess = 0; 
-    private:
-
-  };
-
-  class SkewSymmetricTensor : public Process
-  {
-    public:
-      SkewSymmetricTensor(const Process &process) : Process(process) 
-      {
-        setName("Model/CCF/60 Shape Quantifier/01 Compute Skew Symmetric Tensor");
-
-        setDesc("Compute cell shape anisotropy.");
-        setIcon(QIcon(":/images/CellType.png"));
-
-        addParm("Shape Attribute Name", "Shape Attribute Name", "CellShapeData");
-      
-
-        //addParm("Tissue Process", "Name of process for Cell Tissue simulation", "Model/Cell Ovule Growth/40 Cell Tissue/a Cell Tissue Process");
-
-
-      }
-      bool run();
-      CCIndexDataAttr  *indexAttr = 0;
-      CellShapeAttr *shapeAttr = 0;
-      Mesh *mesh = 0;
-      QString SourceCC;
-      //CellTissueProcess *tissueProcess = 0;
-
-      //AuxinGradient::CellDataAttr *cellAttr = 0;
-      //AuxinGradient::EdgeDataAttr *edgeAttr = 0;
-
-    private:
-
-  };
-
-  class AntiSymmetryTensor : public Process
-  {
-    public:
-      AntiSymmetryTensor(const Process &process) : Process(process) 
-      {
-        setName("Model/CCF/60 Shape Quantifier/02 Compute Antisymmetry Tensor");
-
-        setDesc("Compute cell shape anisotropy.");
-        setIcon(QIcon(":/images/CellType.png"));
-
-        addParm("Shape Attribute Name", "Shape Attribute Name", "CellShapeData");
-      }
-      bool run();
-      CCIndexDataAttr  *indexAttr = 0;
-      CellShapeAttr *shapeAttr = 0;
-      Mesh *mesh = 0;
-      QString SourceCC;
-      //AuxinGradient::CellDataAttr *cellAttr = 0;
-      //AuxinGradient::EdgeDataAttr *edgeAttr = 0;
-
-    private:
-
-  };
-
-
-  class L2PericlinalSurfRatio : public Process
-  {
-    public:
-      L2PericlinalSurfRatio(const Process &process) : Process(process) 
-      {
-        setName("Model/CCF/60 Shape Quantifier/03 Compute L2 periclinal surface ratio for selected ovule zone");
-        setDesc("For each L2 cell, computes the ratio of surface area shared with L1 cells and the surface area shared with L3 layer");
-       
-        addParm("Cutoff value for spurious contact", "Set lower cutoff value to filter out spurious contacts as just edge contact or point contact", "1.");
-        addParm("Shape Attribute Name", "Shape Attribute Name", "CellShapeData");
-      
-
-        setIcon(QIcon(":/images/CellType.png"));
-        //addParm("Select L1 dome cells", "Select L1 dome cells and label as L1Dome", "L1 Dome");
-
-      }
-      bool run();
-      CCIndexDataAttr  *indexAttr = 0;
-      CellShapeAttr *shapeAttr = 0;
-      Mesh *mesh = 0;
-      QString SourceCC;
-      double spuriousContactCutoff;
-      //AuxinGradient::CellDataAttr *cellAttr = 0;
-      //AuxinGradient::EdgeDataAttr *edgeAttr = 0;
-
-    private:
-
-  };
-
-  class VisualizeShapeQuantifiers : public Process
-  {
-    public:
-    //enum ParmNames { pOutputCC, pVectorSize, pNumParms };
-
-    VisualizeShapeQuantifiers(const Process &process) : Process(process) 
-    {
-      setName("Model/CCF/60 Shape Quantifier/04 Visualize Shape Field");
-      setDesc("Draw shape fields and anisotropy vectors.");
-      setIcon(QIcon(":/images/Default.png"));
-
-
-      addParm("Shape Attribute Name", "Shape Attribute Name", "CellShapeData");
-      //addParm("Source CC", "Name of source cell complex", "");
-      //addParm("Visualized field", "Which shape field to visualize", "Anisotropy", QStringList() << "Anisotropy" << "Max Asymmetry" << "Min Asymmetry" << "Anisotropy + Max Asymmetry" << "L2 Periclinal Wall Ratio" <<  "None" );
-      addParm("Output CC", "Name of output cell complex", "Draw cell anisotropy");
-      addParm("Anisotropy Vector Size", "Amount to scale anisotropy vector", "1.0");
-    }
-    //bool initialize(QWidget* parent);
-  
-    bool run() { return run(currentMesh()); }
-    bool run(Mesh *mesh);
-
-  private:
-    // Parameters
-    QString SourceCC;
-    QString OutputCC;
-    bool DrawAnisoVec;
-    double AnisotropyVecSize;
-    CellShapeAttr *shapeAttr = 0;
-    CCIndexDataAttr *indexAttr = 0;
-    //Mesh *mesh = 0;
-
-  };
-
-  class WriteCellShapeQuantifier : public Process
-  {
-    public:
-      WriteCellShapeQuantifier(const Process &process) : Process(process) 
-      {
-        setName("Model/CCF/70 Write Shape Quantifier");
-        setDesc("Write periclinal wall ratio, bottom wall surface, top wall surface, cell volume, for selected L2 cells with their labeling and cell typ (L2 or pSMC) ");
-        setIcon(QIcon(":/images/CellType.png"));
-
-        addParm("Cell Shape quantifier attribute name", "Cell Shape quantifier attribute name", "CellShapeData");
-        addParm("Cell Volume Signal Attribute", "Cell Volume Signal Attribute as from Volume heatmap computation, Mesh/Heat Map/Measures3D/Geometry/Volume", "Volume");
-        addParm("File Name", "File name to write data", "Ovule_EM_C_Test.csv");
-       
-
-      }
-      //bool initialize(QWidget* parent);
-      bool run();
-      Mesh *mesh = 0;
-      CCIndexDataAttr  *indexAttr = 0;
-      //AuxinGradient::CellDataAttr *cellAttr = 0;
-      //AuxinGradient::EdgeDataAttr *edgeAttr = 0;
-      //SkewSymmetricTensor *skewSymmetricTensorProcess = 0;
-      CellShapeAttr *shapeAttr = 0;
-      IntDoubleAttr *volumeHeatAttr = 0;
-      QString fileName; 
-    private:
-
-  };
-
-
+ 
   
 }
 #endif
