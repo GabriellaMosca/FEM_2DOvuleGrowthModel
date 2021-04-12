@@ -1,4 +1,7 @@
 # FEM_2DOvuleGrowthModel
+
+[![DOI](https://zenodo.org/badge/233677761.svg)](https://zenodo.org/badge/latestdoi/233677761)
+
 2D continuous models of ovule growth based on FEM
 
 To run the models you need to have MorphoMechanX installed. To do so, go to www.morphomechanx.org (select again the MorphoMechanX tab) and follow the instructions provided there. As a reference, this model is guaranteed to run against version 2.0.2-858 (git commit: 8eb2aec9055221e3e351ffe064bd059186717374)
