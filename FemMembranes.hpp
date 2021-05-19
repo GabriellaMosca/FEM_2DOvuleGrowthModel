@@ -127,12 +127,12 @@ namespace mdx
       setName("Model/CCF/06 Material Properties/06a Material Properties Uniform");
     }
   };
-  class FemMembraneMaterialMorphogenFaces: public fem::SetTransIsoMaterialMorphogensFaces
+  class FemMembraneMaterialMorphogenFaces: public fem::SetTransIsoMaterialMorphogens
   {
   public:
-    FemMembraneMaterialMorphogenFaces(const Process &proc) : SetTransIsoMaterialMorphogensFaces(proc) 
+    FemMembraneMaterialMorphogenFaces(const Process &proc) : SetTransIsoMaterialMorphogens(proc) 
     {
-      setName("Model/CCF/06 Material Properties/06b Material Properties based on Morphogens (for faces)");
+      setName("Model/CCF/06 Material Properties/06b Material Properties based on Morphogens");
     }
   };
 
